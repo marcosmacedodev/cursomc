@@ -7,25 +7,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mundovirtual.cursomc.services.CategoriaService;
+import com.mundovirtual.cursomc.services.ProdutoService;
 
 @RestController
-@RequestMapping(value="categorias")
-public class CategoriaResource {
+@RequestMapping(value="produtos")
+public class ProdutoResource {
 	
 	@Autowired
-	private CategoriaService categoriaService;
+	private ProdutoService produtoService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<?> findAll() {
-		
-		return ResponseEntity.ok().body(this.categoriaService.findAll());
-		
-	}
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-		return ResponseEntity.ok().body(this.categoriaService.find(id));
+	public ResponseEntity<?> findAll(){
+		return ResponseEntity.ok().body(this.produtoService.findAll());
 	}
 	
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id){
+		return ResponseEntity.ok().body(this.produtoService.find(id));
+	}
 
 }
