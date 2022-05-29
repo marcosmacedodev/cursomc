@@ -15,6 +15,7 @@ import com.mundovirtual.cursomc.domain.Cidade;
 import com.mundovirtual.cursomc.domain.Cliente;
 import com.mundovirtual.cursomc.domain.Endereco;
 import com.mundovirtual.cursomc.domain.Estado;
+import com.mundovirtual.cursomc.domain.ItemPedido;
 import com.mundovirtual.cursomc.domain.Pagamento;
 import com.mundovirtual.cursomc.domain.PagamentoComBoleto;
 import com.mundovirtual.cursomc.domain.PagamentoComCartao;
@@ -27,6 +28,7 @@ import com.mundovirtual.cursomc.repositories.CidadeRepository;
 import com.mundovirtual.cursomc.repositories.ClienteRepository;
 import com.mundovirtual.cursomc.repositories.EnderecoRepository;
 import com.mundovirtual.cursomc.repositories.EstadoRepository;
+import com.mundovirtual.cursomc.repositories.ItemPedidoRepository;
 import com.mundovirtual.cursomc.repositories.PagamentoRepository;
 import com.mundovirtual.cursomc.repositories.PedidoRepository;
 import com.mundovirtual.cursomc.repositories.ProdutoRepository;
@@ -50,6 +52,8 @@ public class CursomcApplication implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -94,6 +98,18 @@ public class CursomcApplication implements CommandLineRunner {
 		ped2.setPagamento(pagto2);
 		//pagto2.setPedido(ped2);
 		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().add(ip1);
+		ped1.getItens().add(ip2);
+		ped2.getItens().add(ip3);
+		
+		p1.getItens().add(ip1);
+		p2.getItens().add(ip3);
+		p3.getItens().add(ip2);
+		
 		cli1.setPedidos(Arrays.asList(ped1, ped2));
 		//---------------------------------------------------------//
 		cli1.setEnderecos(Arrays.asList(e1, e2));
@@ -116,6 +132,7 @@ public class CursomcApplication implements CommandLineRunner {
 		this.enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		this.pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		this.pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		this.itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 	}
 
 }
