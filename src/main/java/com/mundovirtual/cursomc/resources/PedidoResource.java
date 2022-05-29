@@ -7,23 +7,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mundovirtual.cursomc.services.ProdutoService;
+import com.mundovirtual.cursomc.services.PedidoService;
 
 @RestController
-@RequestMapping(value="produtos")
-public class ProdutoResource {
-	
+@RequestMapping(value="pedidos")
+public class PedidoResource {
+
 	@Autowired
-	private ProdutoService produtoService;
-	
-	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<?> findAll(){
-		return ResponseEntity.ok().body(this.produtoService.findAll());
-	}
+	private PedidoService pedidoService;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id){
-		return ResponseEntity.ok().body(this.produtoService.find(id));
+		return ResponseEntity.ok().body( this.pedidoService.find(id) );
 	}
-
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<?> findAll(){
+		return ResponseEntity.ok().body(this.pedidoService.findAll());
+	}
+	
+	
 }
